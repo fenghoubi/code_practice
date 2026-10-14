@@ -1,0 +1,90 @@
+{
+    // ============================================================
+    // IntelliSense：统一使用 MSYS2 UCRT64 的 g++
+    // ============================================================
+    "C_Cpp.default.compilerPath": "D:/msys2/ucrt64/bin/g++.exe",
+    "C_Cpp.default.cStandard": "c11",
+    "C_Cpp.default.cppStandard": "c++17",
+    "C_Cpp.default.intelliSenseMode": "windows-gcc-x64",
+    "C_Cpp.default.compilerArgs": [
+        "-std=c++17"
+    ],
+
+    "files.associations": {
+        "iostream": "cpp",
+        "limits": "cpp",
+        "*.h": "cpp",
+        "*.cpp": "cpp"
+    },
+
+    // ============================================================
+    // 统一编码：彻底消除中文 Windows 上的乱码风险
+    //  - files.encoding=utf8：新建/保存一律用无 BOM 的 UTF-8
+    //  - files.autoGuessEncoding=false：禁止 VS Code 猜测编码。
+    //    这一行才是关键：中文 Windows 上无 BOM 的 UTF-8 极易被猜成 GBK，
+    //    关掉猜测后，本工程所有文件（含 .vscode/*.json）都按 UTF-8 读，
+    //    中文注释不会再变乱码，"值"里的 ASCII 也永远稳定。
+    //  - 如果以后需要打开 GBK 编码的旧文件，右下角状态栏手动选一次
+    //    "Reopen with Encoding -> GB2312" 即可，不需要改回这两个设置。
+    // ============================================================
+    "files.encoding": "utf8",
+    "files.autoGuessEncoding": false,
+
+    // ============================================================
+    // 集成终端：MSYS2 UCRT64 登录 shell
+    // 关键点：
+    //  - MSYSTEM=UCRT64 决定 bash 加载 /ucrt64 环境（ucrt64 工具链进 PATH）
+    //  - CHERE_INVOKING=1 表示"不要 cd 到 home"，直接留在当前工程目录，
+    //    这样终端永远开在项目根目录，cmake/g++ 命令开箱可用
+    //  - MSYS2_PATH_TYPE=inherit 让 Windows PATH 一并继承
+    // ============================================================
+    "terminal.integrated.profiles.windows": {
+        "MSYS2 UCRT64": {
+            "path": "D:\\msys2\\usr\\bin\\bash.exe",
+            "args": [
+                "--login",
+                "-i"
+            ],
+            "env": {
+                "MSYSTEM": "UCRT64",
+                "CHERE_INVOKING": "1",
+                "MSYS2_PATH_TYPE": "inherit"
+            },
+            "icon": "terminal-bash"
+        },
+        // 备选：原生 cmd，但 PATH 里已注入 UCRT64，方便排查"到底谁在跑 g++"
+        "cmd (UCRT64 PATH)": {
+            "path": "C:\\Windows\\System32\\cmd.exe",
+            "args": [],
+            "env": {
+                "PATH": "D:/msys2/ucrt64/bin;${env:PATH}"
+            }
+        }
+    },
+    "terminal.integrated.defaultProfile.windows": "MSYS2 UCRT64",
+
+    // 让 VS Code 启动的终端进程都能找到 UCRT64 的 cmake / g++ / gdb
+    "terminal.integrated.env.windows": {
+        "PATH": "D:/msys2/ucrt64/bin;${env:PATH}"
+    },
+
+    // ============================================================
+    // CMake Tools：多文件工程配置 + 构建
+    //  - 生成器固定为 MinGW Makefiles，配合 UCRT64 自带的 mingw32-make
+    //  - CMakeLists.txt 里已 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)，
+    //    这里再用 configureArgs 兜底保证 compile_commands.json 一定生成
+    //  - buildBeforeRun=true：F5 调试前自动构建，改完代码直接按 F5 即可
+    // ============================================================
+    "cmake.generator": "MinGW Makefiles",
+    "cmake.buildDirectory": "${workspaceFolder}/build",
+    "cmake.configureOnOpen": true,
+    "cmake.buildBeforeRun": true,
+    "cmake.configureSettings": {
+        "CMAKE_MAKE_PROGRAM": "D:/msys2/ucrt64/bin/mingw32-make.exe",
+        "CMAKE_C_COMPILER": "D:/msys2/ucrt64/bin/gcc.exe",
+        "CMAKE_CXX_COMPILER": "D:/msys2/ucrt64/bin/g++.exe"
+    },
+    "cmake.configureArgs": [
+        "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
+    ]
+}

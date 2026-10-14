@@ -1,0 +1,58 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            // ============ 主调试配置：F5 直接用 MSYS2 UCRT64 构建 + 调试 ============
+            // 这是最稳、支持 cin 键盘输入的方式（推荐日常使用）
+            // 注意：本文件所有"值"一律用 ASCII，中文说明只写在注释里。
+            // 因为无 BOM 的 UTF-8 文件在中文 Windows 上可能被误判成 GBK，
+            // 注释乱码无害，而 name/detail 这类"值"乱码会直接显示出来。
+            "name": "my_app (MSYS2 UCRT64)",
+            "type": "cppdbg",
+            "request": "launch",
+
+            // 关键：由 CMake Tools 解析出当前 build 目录里真实的 exe 路径。
+            // 配合 settings.json 的 cmake.buildBeforeRun=true，
+            // 按 F5 会自动先构建多文件工程，再把 exe 路径填进来，
+            // 所以不用手写 build/my_app.exe，改名/改构建目录也不会失效。
+            "program": "${command:cmake.launchTargetPath}",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+
+            // 让被调试程序也能找到 UCRT64 的运行时 DLL，避免启动时报缺 dll
+            "environment": [
+                {
+                    "name": "PATH",
+                    "value": "D:/msys2/ucrt64/bin;${env:PATH}"
+                }
+            ],
+
+            // 独立控制台窗口：cin/cout 完全正常，程序结束窗口会保留输出
+            "externalConsole": true,
+            // 阻止 VS Code 对控制台做重定向，保证 true 时的交互体验
+            "avoidWindowsConsoleRedirection": true,
+            "console": "externalTerminal",
+
+            "MIMode": "gdb",
+            "miDebuggerPath": "D:/msys2/ucrt64/bin/gdb.exe",
+            "setupCommands": [
+                {
+                    "description": "enable pretty-printing (STL containers readable)",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "disable gdb confirm prompts",
+                    "text": "set confirm off",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "allow pending breakpoints",
+                    "text": "set breakpoint pending on",
+                    "ignoreFailures": true
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,43 @@
+{
+    "version": 4,
+    "configurations": [
+        {
+            "name": "MSYS2-UCRT64",
+            // 统一指向 MSYS2 UCRT64 的 g++，与 CMake 实际使用的编译器保持一致
+            "compilerPath": "D:/msys2/ucrt64/bin/g++.exe",
+            "compilerArgs": [
+                "-std=c++17"
+            ],
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "windows-gcc-x64",
+            // 直接把 CMake 生成的 compile_commands.json 交给 IntelliSense。
+            // 这样每个源文件的 include 路径、宏定义都以真实编译命令为准，
+            // 不会再出现"多文件工程里跨目录头文件补全/跳转失败"。
+            "compileCommands": "${workspaceFolder}/build/compile_commands.json",
+            // 下面这些是首次配置、compile_commands.json 还没生成时的兜底
+            "includePath": [
+                "${workspaceFolder}/include",
+                "${workspaceFolder}/src",
+                "D:/msys2/ucrt64/include",
+                "D:/msys2/ucrt64/include/c++/16.2.0",
+                "D:/msys2/ucrt64/include/c++/16.2.0/x86_64-w64-mingw32",
+                "D:/msys2/ucrt64/include/c++/16.2.0/backward",
+                "D:/msys2/ucrt64/lib/gcc/x86_64-w64-mingw32/16.2.0/include"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/include",
+                    "${workspaceFolder}/src",
+                    "D:/msys2/ucrt64/include"
+                ],
+                "limitSymbolsToIncludedHeaders": true
+            }
+        }
+    ]
+}

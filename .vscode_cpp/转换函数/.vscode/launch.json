@@ -1,0 +1,30 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "C++ (GDB/LLDB)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${command:cmake.launchTargetPath}",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${command:cmake.launchTargetDirectory}",
+            "environment": [
+                { "name": "PATH", "value": "D:/msys2/ucrt64/bin;${env:PATH}" }
+            ],
+            // --- 核心修改：启用外部控制台 ---
+            "externalConsole": true,
+            // ------------------------------------
+            "MIMode": "gdb",
+            "miDebuggerPath": "D:/msys2/ucrt64/bin/gdb.exe",
+            "setupCommands": [
+                {
+                    "description": "为 gdb 启用整齐打印",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "CMake: build"
+        }
+    ]
+}

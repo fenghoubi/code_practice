@@ -1,0 +1,31 @@
+{
+    // 1. 让 C/C++ 插件默认使用 MSYS2 的 g++ 提供智能提示
+    "C_Cpp.default.compilerPath": "D:/msys2/ucrt64/bin/g++.exe",
+    "C_Cpp.default.cppStandard": "c++17",
+    "C_Cpp.default.cStandard": "c11",
+    "C_Cpp.default.intelliSenseMode": "windows-gcc-x64",
+
+    // 2. 保留常规文件关联
+    "files.associations": {
+        "iostream": "cpp",
+        "limits": "cpp"
+    },
+
+    // 3. 配置 MSYS2 终端
+    "terminal.integrated.profiles.windows": {
+        "MSYS2 UCRT64": {
+            "path": "D:\\msys2\\usr\\bin\\bash.exe",
+            "args": ["--login", "-i"],
+            "env": {
+                "MSYSTEM": "UCRT64",
+                "CHERE_INVOKING": "1"
+            }
+        }
+    },
+
+    // 4. 将默认终端设置为 MSYS2 UCRT64（不要用 PowerShell，避免路径解析冲突）
+    "terminal.integrated.defaultProfile.windows": "MSYS2 UCRT64",
+
+    // 5. 让 CMake 默认使用 Ninja 生成器（速度极快，CMake 多文件工程必备）
+    "cmake.generator": "Ninja"
+}

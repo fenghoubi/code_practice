@@ -1,0 +1,53 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "CMake: configure",
+            // 用 MSYS2 UCRT64 工具链配置工程，生成 build/
+            "detail": "configure project with MSYS2 UCRT64 toolchain",
+            "type": "cmake",
+            "command": "configure",
+            "problemMatcher": []
+        },
+        {
+            // Ctrl+Shift+B 默认调用的任务；F5 调试时 CMake Tools 也会自动构建
+            "label": "CMake: build",
+            // 构建 my_app（多文件工程）
+            "detail": "build all targets (my_app)",
+            "type": "cmake",
+            "command": "build",
+            "targets": [
+                "all"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            // 用 $gcc 解析器，编译报错能直接在"问题"面板点击跳转到源码行
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "CMake: clean rebuild",
+            // 清理后重新构建全部目标
+            "detail": "clean then rebuild all targets",
+            "type": "cmake",
+            "command": "cleanRebuild",
+            "targets": [
+                "all"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "CMake: clean",
+            // 删除构建产物
+            "detail": "remove build artifacts",
+            "type": "cmake",
+            "command": "clean",
+            "problemMatcher": []
+        }
+    ]
+}

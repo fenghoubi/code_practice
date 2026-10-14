@@ -1,0 +1,17 @@
+# compiled artifacts (do not upload)
+build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+*.exe
+*.obj
+*.o
+*.out
+*.pdb
+*.ilk
+a.out
+# editor / OS files
+.vs/
+Thumbs.db
+desktop.ini
+Task1.docx
