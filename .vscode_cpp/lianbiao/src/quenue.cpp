@@ -6,7 +6,7 @@ bool Quenue::addRear(const Item& s)
   {
     front = new Node;
     front->item = s;
-    rear - front;
+    rear = front;
     rear->next = nullptr;
     return true;
   }
@@ -18,7 +18,7 @@ bool Quenue::addRear(const Item& s)
     items++;
     return true;
 }
-  bool Quenue::add(const Item& s,const int& num)//
+  bool Quenue::add(const Item& s,const int& num)//ok
   {
     if(num >  items +1)
     return false;
@@ -38,9 +38,9 @@ bool Quenue::addRear(const Item& s)
     items++;
     return true;
   }
-  bool Quenue::getoutItem(const int& num,Item& get)
+  bool Quenue::getoutItem(const int& num,Item& get)//ok
   {
-    if(items>num)
+    if(items<num||num<=0)
     return false;
     Node* temp = front;
     if(num == 1)
@@ -51,21 +51,21 @@ bool Quenue::addRear(const Item& s)
         delete temp;
         return true;
     }
-    for(int i = 0;i<=num-1;i++)
+    for(int i = 0;i<=num-2;i++)//进行Num-1次
     {
         temp = temp->next;
     }
     Node* dis = temp->next;
     get = dis->item;
-    temp->next = dis->next;//while(dis == rear) also true
+    temp->next = dis->next;//if(dis == rear) also true
     delete dis;
     return true;
   }
-  bool Quenue::addFront(const Item& first)
+  bool Quenue::addFront(const Item& first)//ok
   {
     Node* temp = new Node;
     temp->item = first;
-    temp ->next = front;
+    temp ->next = front;//=nullptr
     front = temp;
     items++;
     return true;
@@ -76,7 +76,7 @@ bool Quenue::addRear(const Item& s)
   {
     return items;
   }//转换函数，提取出items的值
-  Quenue::Quenue(const std::vector<Item>& arr)
+  Quenue::Quenue(const std::vector<Item>& arr)//ok
   {
     if(arr.size() == 0)
     {
@@ -110,7 +110,7 @@ bool Quenue::addRear(const Item& s)
     }
     items = 0;
   }
-  Quenue::Quenue(const Quenue& s)
+  Quenue::Quenue(const Quenue& s)//ok
   {
     if(s.items == 0)
     {
@@ -131,23 +131,24 @@ bool Quenue::addRear(const Item& s)
         rear->item = temp->item;
         temp = temp->next;
     }
+    items = s.items;
   }
-  Quenue& Quenue::operator = (const Quenue& s)
+  Quenue& Quenue::operator = (const Quenue& s)//ok
   {
     if(&s == this)
     return *this;
     Node* temp = front;
-    while(temp != nullptr)
-    {
-        front = front->next;
-        delete temp;
-        temp = front;
-    }
     if(s.items == 0)
     {
       front = rear = nullptr;
       items = 0;
       return;
+    }
+    while(temp!=nullptr)
+    {
+      front = front->next;
+      delete temp;
+      temp = front;
     }
     front = new Node;
     front->item = s.front->item;
@@ -164,9 +165,10 @@ bool Quenue::addRear(const Item& s)
       temp = temp->next;
     }
     items = s.items;
+    return *this;
     //Quenue(s);
   }
-  Quenue::Quenue(const Quenue& s)
+  Quenue::Quenue(const Quenue& s)//ok
   {
     if(s.items == 0)
     {
@@ -193,7 +195,7 @@ bool Quenue::addRear(const Item& s)
   {
     return items;
   }
-  Quenue& Quenue::operator+(const Quenue& s)
+  Quenue& Quenue::operator+(const Quenue& s)//ok
   {
     if(s.front == nullptr)
     return *this;
@@ -214,8 +216,8 @@ bool Quenue::addRear(const Item& s)
         temp = temp->next;
     }
     items = s.items;
+    return *this;
     }
-    
     Node* temp = front;
     Node* temp1 = new Node;
     temp1->item = temp->item;
