@@ -1,6 +1,6 @@
 ﻿#include"quenue.h"
 #include<vector>
-bool Quenue::addRear(const Item& s)
+bool Quenue::addRear(const Item& s)//ok2
 {
   if(items == 0)
   {
@@ -8,6 +8,7 @@ bool Quenue::addRear(const Item& s)
     front->item = s;
     rear = front;
     rear->next = nullptr;
+    items++;
     return true;
   }
     Node* temp = new Node;
@@ -38,7 +39,7 @@ bool Quenue::addRear(const Item& s)
     items++;
     return true;
   }
-  bool Quenue::getoutItem(const int& num,Item& get)//ok
+  bool Quenue::getoutItem(const int& num,Item& get)//ok//ok
   {
     if(items<num||num<=0)
     return false;
@@ -47,8 +48,16 @@ bool Quenue::addRear(const Item& s)
     {
         get = front->item;
         Node* temp = front;
+        if(items == 1)
+        {
+          delete temp;
+          front = rear = nullptr;
+          items = 0;
+          return true;
+        }
         front = front->next;
         delete temp;
+        items--;
         return true;
     }
     for(int i = 0;i<=num-2;i++)//进行Num-1次
@@ -67,6 +76,8 @@ bool Quenue::addRear(const Item& s)
     temp->item = first;
     temp ->next = front;//=nullptr
     front = temp;
+    if(items == 0)
+    rear =front;
     items++;
     return true;
   }
@@ -172,7 +183,7 @@ bool Quenue::addRear(const Item& s)
   {
     if(s.items == 0)
     {
-        items =0;
+        items = 0;
         front = rear = nullptr;
     }
     front = new Node;
